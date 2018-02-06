@@ -20,8 +20,6 @@ COPY default ${nginx_vhost}
 COPY haproxy.cfg ${haproxy_cfg}
 COPY supervisord.conf ${supervisor_conf}
 
-RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_ini} 
-
 RUN mkdir -p /run/php && mkdir -p /run/haproxy && \
     chown -R www-data:www-data /var/www/html && \
     chown -R www-data:www-data /run/php
