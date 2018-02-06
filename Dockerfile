@@ -1,13 +1,12 @@
 FROM debian:jessie-slim
 
 ENV TZ=America/New_York
-RUN rm /etc/localtime && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 RUN apt-get update
 RUN apt-get install -y tzdata wget unzip vim nginx php5 php5-fpm nginx \
 php5-curl php5-gd php-pear php5-mysql php5-mcrypt php5-xmlrpc \
 php5-json php5-xsl dtrx haproxy supervisor \
 && rm -rf /var/lib/apt/lists/*
+RUN rm /etc/localtime && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV nginx_vhost /etc/nginx/sites-available/default
 ENV php_ini /etc/php5/fpm/php.ini
