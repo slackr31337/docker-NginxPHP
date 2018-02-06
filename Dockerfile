@@ -1,11 +1,11 @@
 FROM debian:stretch-slim
-
+ENV TZ=America/New_York
 RUN apt-get update
-RUN apt-get install -y wget unzip vim nginx php7.0-fpm php7.0-mysql php7.0-gd php7.0-mcrypt php7.0-xsl \
+RUN apt-get install -y tzdata wget unzip vim nginx php7.0-fpm php7.0-mysql php7.0-gd php7.0-mcrypt php7.0-xsl \
 php7.0-xml php7.0-xmlrpc php7.0-mbstring php7.0-zip php7.0-bcmath php7.0-curl php7.0-json php7.0-opcache \
 geoip-database ca-certificates haproxy supervisor 
-	
 RUN rm -rf /var/lib/apt/lists/* /etc/nginx/sites-enabled/* 
+RUN rm /etc/localtime && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV nginx_vhost /etc/nginx/sites-available/icontent.conf
 ENV php_ini /etc/php/7.0/fpm/php.ini
